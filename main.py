@@ -52,12 +52,47 @@ class DevelopingCountry(Country):
         return info
 
 
+class World:
+    def __init__(self):
+        self.countries = []
+
+    def add_country(self, country):
+        self.countries.append(country)
+
+    def get_counry_info(self, country):
+        for c in self.countries:
+            if c.name == country:
+                return c.get_info()
+        return None
+
+
+################################################################
 # Test
-country1 = DevelopedCountry(
+################################################################
+
+# Create world instance to hold all countries
+world1 = World()
+
+# Create country instance
+usa = DevelopedCountry(
     name="USA", capital="Washington", population=315000000, gdp=25000000000000
 )
 
-country2 = DevelopingCountry(
+# Create country instance
+uganda = DevelopingCountry(
     name="Uganda", capital="Kampala", population=47000000, hdi=0.55
 )
-print(country2.get_info())
+
+# Add countries to world class
+world1.add_country(usa)
+world1.add_country(uganda)
+
+# Search for country
+country_info = world1.get_counry_info("USA")
+
+if country_info:
+    print({"Country Info": country_info})
+    for key, value in country_info.items():
+        print(f"{key}:{value}")
+    else:
+        print("Country not found")
